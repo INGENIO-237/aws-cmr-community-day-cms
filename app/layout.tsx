@@ -17,7 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AWS Community Day Cameroon 2025 CMS Dashboard",
+  title: "AWS Community Day Cameroon 2026 CMS Dashboard",
 };
 
 export default function RootLayout({
@@ -32,9 +32,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <LanguageProvider>
-            <YearProvider>
-              {children}
-            </YearProvider>
+            <YearProvider>{children}</YearProvider>
           </LanguageProvider>
         </AuthProvider>
       </body>

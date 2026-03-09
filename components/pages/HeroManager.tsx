@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { 
-  Plus, 
-  Upload, 
-  Edit, 
-  Trash2, 
-  Eye, 
-  Move, 
+import React, { useState } from "react";
+import {
+  Plus,
+  Upload,
+  Edit,
+  Trash2,
+  Eye,
+  Move,
   Image as ImageIcon,
-  Globe
-} from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import Image from 'next/image';
+  Globe,
+} from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "next/image";
 
 interface HeroBanner {
   id: string;
@@ -31,55 +31,71 @@ export default function HeroManager() {
   // Mock data
   const [banners, setBanners] = useState<HeroBanner[]>([
     {
-      id: '1',
-      title: { en: 'AWS Community Day Cameroon 2025', fr: 'Journée Communautaire AWS Cameroun 2025' },
-      subtitle: { en: 'Join us for the biggest cloud event', fr: 'Rejoignez-nous pour le plus grand événement cloud' },
-      image: 'https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg?w=800&h=400&fit=crop',
-      ctaText: { en: 'Register Now', fr: 'S\'inscrire Maintenant' },
-      ctaLink: '#register',
+      id: "1",
+      title: {
+        en: "AWS Community Day Cameroon 2026",
+        fr: "Journée Communautaire AWS Cameroun 2026",
+      },
+      subtitle: {
+        en: "Join us for the biggest cloud event",
+        fr: "Rejoignez-nous pour le plus grand événement cloud",
+      },
+      image:
+        "https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg?w=800&h=400&fit=crop",
+      ctaText: { en: "Register Now", fr: "S'inscrire Maintenant" },
+      ctaLink: "#register",
       order: 1,
-      published: true
+      published: true,
     },
     {
-      id: '2',
-      title: { en: 'Learn from Industry Experts', fr: 'Apprenez des Experts de l\'Industrie' },
-      subtitle: { en: 'World-class speakers and sessions', fr: 'Conférenciers et sessions de classe mondiale' },
-      image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?w=800&h=400&fit=crop',
-      ctaText: { en: 'View Speakers', fr: 'Voir les Intervenants' },
-      ctaLink: '#speakers',
+      id: "2",
+      title: {
+        en: "Learn from Industry Experts",
+        fr: "Apprenez des Experts de l'Industrie",
+      },
+      subtitle: {
+        en: "World-class speakers and sessions",
+        fr: "Conférenciers et sessions de classe mondiale",
+      },
+      image:
+        "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?w=800&h=400&fit=crop",
+      ctaText: { en: "View Speakers", fr: "Voir les Intervenants" },
+      ctaLink: "#speakers",
       order: 2,
-      published: true
-    }
+      published: true,
+    },
   ]);
 
   const handleSave = (banner: Partial<HeroBanner>) => {
     if (editingBanner) {
-      setBanners(prev => prev.map(b => b.id === editingBanner.id ? { ...b, ...banner } : b));
+      setBanners((prev) =>
+        prev.map((b) => (b.id === editingBanner.id ? { ...b, ...banner } : b)),
+      );
     } else {
       const newBanner: HeroBanner = {
         id: Date.now().toString(),
-        title: banner.title || { en: '', fr: '' },
-        subtitle: banner.subtitle || { en: '', fr: '' },
-        image: banner.image || '',
-        ctaText: banner.ctaText || { en: '', fr: '' },
-        ctaLink: banner.ctaLink || '',
+        title: banner.title || { en: "", fr: "" },
+        subtitle: banner.subtitle || { en: "", fr: "" },
+        image: banner.image || "",
+        ctaText: banner.ctaText || { en: "", fr: "" },
+        ctaLink: banner.ctaLink || "",
         order: banners.length + 1,
-        published: false
+        published: false,
       };
-      setBanners(prev => [...prev, newBanner]);
+      setBanners((prev) => [...prev, newBanner]);
     }
     setShowForm(false);
     setEditingBanner(null);
   };
 
   const handleDelete = (id: string) => {
-    setBanners(prev => prev.filter(b => b.id !== id));
+    setBanners((prev) => prev.filter((b) => b.id !== id));
   };
 
   const togglePublished = (id: string) => {
-    setBanners(prev => prev.map(b => 
-      b.id === id ? { ...b, published: !b.published } : b
-    ));
+    setBanners((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, published: !b.published } : b)),
+    );
   };
 
   return (
@@ -87,20 +103,24 @@ export default function HeroManager() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">{t('hero.title')}</h1>
-          <p className="text-gray-600 mt-2">Manage hero banners for your event website</p>
+          <h1 className="text-3xl font-bold text-gray-800">
+            {t("hero.title")}
+          </h1>
+          <p className="text-gray-600 mt-2">
+            Manage hero banners for your event website
+          </p>
         </div>
         <div className="flex items-center space-x-3">
           <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
             <Upload className="w-4 h-4" />
-            <span>{t('hero.upload')}</span>
+            <span>{t("hero.upload")}</span>
           </button>
           <button
             onClick={() => setShowForm(true)}
             className="flex items-center space-x-2 bg-aws-primary text-white px-4 py-2 rounded-lg hover:bg-aws-primary/90"
           >
             <Plus className="w-4 h-4" />
-            <span>{t('hero.add')}</span>
+            <span>{t("hero.add")}</span>
           </button>
         </div>
       </div>
@@ -108,26 +128,31 @@ export default function HeroManager() {
       {/* Banner Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {banners.map((banner) => (
-          <div key={banner.id} className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div
+            key={banner.id}
+            className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+          >
             {/* Banner Image */}
             <div className="relative h-48 bg-gray-200">
-                <Image
-                    src={banner.image}
-                    alt={banner.title[currentLanguage]}
-                    fill   // 👈 makes the image cover the parent
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw,
+              <Image
+                src={banner.image}
+                alt={banner.title[currentLanguage]}
+                fill // 👈 makes the image cover the parent
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw,
                        (max-width: 1200px) 50vw,
                        33vw"
-                    priority={banner.order === 1} // 👈 optional: preload first banner
-                />
+                priority={banner.order === 1} // 👈 optional: preload first banner
+              />
               <div className="absolute top-3 right-3 flex space-x-2">
-                <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                  banner.published 
-                    ? 'bg-green-100 text-green-800' 
-                    : 'bg-yellow-100 text-yellow-800'
-                }`}>
-                  {banner.published ? 'Published' : 'Draft'}
+                <span
+                  className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    banner.published
+                      ? "bg-green-100 text-green-800"
+                      : "bg-yellow-100 text-yellow-800"
+                  }`}
+                >
+                  {banner.published ? "Published" : "Draft"}
                 </span>
                 <div className="bg-black/50 px-2 py-1 rounded-full">
                   <span className="text-white text-xs">#{banner.order}</span>
@@ -143,7 +168,7 @@ export default function HeroManager() {
               <p className="text-sm text-gray-600 mb-3 line-clamp-2">
                 {banner.subtitle[currentLanguage]}
               </p>
-              
+
               <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                 <span>{banner.ctaText[currentLanguage]}</span>
                 <div className="flex items-center space-x-1">
@@ -182,11 +207,11 @@ export default function HeroManager() {
                     onClick={() => togglePublished(banner.id)}
                     className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${
                       banner.published
-                        ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                        : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                        ? "bg-green-100 text-green-800 hover:bg-green-200"
+                        : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                     }`}
                   >
-                    {banner.published ? 'Unpublish' : 'Publish'}
+                    {banner.published ? "Unpublish" : "Publish"}
                   </button>
                 </div>
               </div>
@@ -199,13 +224,17 @@ export default function HeroManager() {
       {banners.length === 0 && (
         <div className="text-center py-12">
           <ImageIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-800 mb-2">No hero banners yet</h3>
-          <p className="text-gray-600 mb-6">Create your first hero banner to get started</p>
+          <h3 className="text-lg font-medium text-gray-800 mb-2">
+            No hero banners yet
+          </h3>
+          <p className="text-gray-600 mb-6">
+            Create your first hero banner to get started
+          </p>
           <button
             onClick={() => setShowForm(true)}
             className="bg-aws-primary text-white px-6 py-3 rounded-lg hover:bg-aws-primary/90"
           >
-            {t('hero.add')}
+            {t("hero.add")}
           </button>
         </div>
       )}
@@ -215,9 +244,11 @@ export default function HeroManager() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl p-6 w-full max-w-2xl">
             <h2 className="text-xl font-bold mb-4">
-              {editingBanner ? 'Edit Hero Banner' : 'Add New Hero Banner'}
+              {editingBanner ? "Edit Hero Banner" : "Add New Hero Banner"}
             </h2>
-            <p className="text-gray-600 mb-4">Form implementation would go here...</p>
+            <p className="text-gray-600 mb-4">
+              Form implementation would go here...
+            </p>
             <div className="flex space-x-3">
               <button
                 onClick={() => {

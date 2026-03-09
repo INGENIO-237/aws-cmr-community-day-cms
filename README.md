@@ -271,7 +271,7 @@ If images fail to upload:
 The CMS is designed to manage multiple event years:
 
 1. Go to **Settings** or use the year selector in the header
-2. Create a new year for each event (e.g., 2024, 2025)
+2. Create a new year for each event (e.g., 2024, 2026)
 3. All content (speakers, agenda, gallery) is tied to a specific year
 4. Switch between years using the year selector
 
